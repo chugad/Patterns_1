@@ -37,7 +37,7 @@ public class AppCardDeliveryTest {
     }
 
     @Test
-    void happyPathError() {// ссылка на ишью
+    void happyPathError() {// форма должна отправляться, тест должен проходить. ссылка на ишью: https://github.com/chugad/Patterns_1/issues/1
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
@@ -157,7 +157,7 @@ public class AppCardDeliveryTest {
     }
 
     @Test
-    void shouldTestPathIfInvalidPhoneUnderLimitDown() { // тест должен упасть, ссылка на ишью:
+    void shouldTestPathIfInvalidPhoneUnderLimitDown() { // форма не должна отправляться, тест должен проходить. ссылка на ишью: https://github.com/chugad/Patterns_1/issues/2
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
@@ -169,7 +169,7 @@ public class AppCardDeliveryTest {
     }
 
     @Test
-    void shouldTestPathIfEmptyPhoneNumber() { // тест должен упасть, ссылка на ишью:
+    void shouldTestPathIfEmptyPhoneNumber() {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
