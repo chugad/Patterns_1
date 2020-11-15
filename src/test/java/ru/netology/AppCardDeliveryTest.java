@@ -12,11 +12,13 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class AppCardDeliveryTest {
-    String city = AppCardDelivery.randomCity();
-    String date = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-    String date2 = AppCardDelivery.randomDate();
-    String name = AppCardDelivery.randomName();
-    String phone = AppCardDelivery.randomPhone();
+    String city = DataGenerator.randomCity();
+    String date = DataGenerator.dateAfterThreeDays();
+    String date2 = DataGenerator.randomDate();
+    String name = DataGenerator.randomName();
+    String phone = DataGenerator.randomPhone();
+    String invalidPhone = DataGenerator.randomInvalidPhone();
+    String invalidName = DataGenerator.randomInvalidName();
 
     @BeforeEach
     void shouldStartBeforeEachTest() {
@@ -41,7 +43,7 @@ public class AppCardDeliveryTest {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
-        $("[data-test-id='name'] input").setValue("Фёдор Фёдорович Свёклов");
+        $("[data-test-id='name'] input").setValue("Свёклов Фёдор");
         $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id='agreement']").click();
         $(byText("Запланировать")).click();
@@ -54,8 +56,8 @@ public class AppCardDeliveryTest {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
-        $("[data-test-id='name'] input").setValue(AppCardDelivery.randomName());
-        $("[data-test-id=phone] input").setValue(AppCardDelivery.randomPhone());
+        $("[data-test-id='name'] input").setValue(name);
+        $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id=agreement]").click();
         $(byText("Запланировать")).click();
         $("[data-test-id='success-notification'] .notification__title").waitUntil(text("Успешно!"), 15000).shouldBe(visible);
@@ -95,7 +97,6 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldTestPathDateEmpty() {
-
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue("");
@@ -107,11 +108,10 @@ public class AppCardDeliveryTest {
     }
 
     @Test
-    void shouldTestPathDateTwoDays() {
-        String dateTwoDays = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    void shouldTestPathInvalidDateTwoDays() {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-        $("[data-test-id=date] input").setValue(dateTwoDays);
+        $("[data-test-id=date] input").setValue(LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         $("[data-test-id='name'] input").setValue(name);
         $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id='agreement']").click();
@@ -121,10 +121,9 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldTestPathDateNow() {
-        String dateNow = LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
-        $("[data-test-id=date] input").setValue(dateNow);
+        $("[data-test-id=date] input").setValue(LocalDate.now().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
         $("[data-test-id='name'] input").setValue(name);
         $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id='agreement']").click();
@@ -149,7 +148,7 @@ public class AppCardDeliveryTest {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
-        $("[data-test-id='name'] input").setValue("Lelby Jktu");
+        $("[data-test-id='name'] input").setValue(invalidName);
         $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id='agreement']").click();
         $(byText("Запланировать")).click();
@@ -162,7 +161,7 @@ public class AppCardDeliveryTest {
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
         $("[data-test-id='name'] input").setValue(name);
-        $("[data-test-id=phone] input").setValue("7923");
+        $("[data-test-id=phone] input").setValue(String.valueOf(invalidPhone));
         $("[data-test-id='agreement']").click();
         $(byText("Запланировать")).click();
         $("[data-test-id='phone'].input_invalid .input__sub").shouldBe(visible).shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
