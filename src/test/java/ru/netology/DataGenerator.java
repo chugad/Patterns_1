@@ -19,6 +19,14 @@ public class DataGenerator {
         return randomCity;
     }
 
+    public static String randomInvalidCity() {
+        String[] city = new String[]{"Киселёвск", "Майма", "Бийск", "Бердск", "Белово", "Рубцовск", "Алейск", "Северск", "Братск", "Железногорск"
+        };
+        int randomIndex = new Random().nextInt(city.length);
+        String randomInvalidCity = city[randomIndex];
+        return randomInvalidCity;
+    }
+
     public static String randomDate() {
         Faker faker = new Faker(new Locale("ru"));
         long randomCount = faker.number().numberBetween(1, 9);
@@ -37,6 +45,15 @@ public class DataGenerator {
         String randomName2 = faker.name().firstName();
         String randomName = randomName1 + " " + randomName2;
         return randomName;
+    }
+
+    public static String randomValidNameGetError() {
+        String[] randomName1 = new String[]{"Артём", "Аксён", "Семён", "Фёдор", "Парфён", "Панфёр", "Пармён", "Фалалёй", "Ерёма", "Селивёрст", "Нефёд", "Алфёр"
+        };
+        String[] randomName2 = new String[]{"Артёмов", "Аксёнов", "Семёнов", "Фёдоров", "Парфёнов", "Панфёров", "Пармёнов", "Фалалёев", "Ерёмов", "Селивёрстов", "Нефёдов", "Алфёров"
+        };
+        String randomValidNameGetError = randomName1 + " " + randomName2;
+        return randomValidNameGetError;
     }
 
     public static String randomInvalidName() {

@@ -19,6 +19,8 @@ public class AppCardDeliveryTest {
     String phone = DataGenerator.randomPhone();
     String invalidPhone = DataGenerator.randomInvalidPhone();
     String invalidName = DataGenerator.randomInvalidName();
+    String validNameGetError = DataGenerator.randomValidNameGetError();
+    String invalidCity = DataGenerator.randomInvalidCity();
 
     @BeforeEach
     void shouldStartBeforeEachTest() {
@@ -43,7 +45,7 @@ public class AppCardDeliveryTest {
         $("[data-test-id=city] .input__control").setValue(city);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
-        $("[data-test-id='name'] input").setValue("Свёклов Фёдор");
+        $("[data-test-id='name'] input").setValue(validNameGetError);
         $("[data-test-id=phone] input").setValue(phone);
         $("[data-test-id='agreement']").click();
         $(byText("Запланировать")).click();
@@ -85,7 +87,7 @@ public class AppCardDeliveryTest {
 
     @Test
     void shouldTestPathIfCityIsNotCapital() {
-        $("[data-test-id=city] .input__control").setValue("Бийск");
+        $("[data-test-id=city] .input__control").setValue(invalidCity);
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.CONTROL, "a", Keys.DELETE));
         $("[data-test-id=date] input").setValue(date);
         $("[data-test-id='name'] input").setValue(name);
