@@ -52,7 +52,11 @@ public class DataGenerator {
         };
         String[] randomName2 = new String[]{"Артёмов", "Аксёнов", "Семёнов", "Фёдоров", "Парфёнов", "Панфёров", "Пармёнов", "Фалалёев", "Ерёмов", "Селивёрстов", "Нефёдов", "Алфёров"
         };
-        String randomValidNameGetError = randomName1 + " " + randomName2;
+        int randomIndex1 = new Random().nextInt(randomName1.length);
+        int randomIndex2 = new Random().nextInt(randomName2.length);
+        String Name1 = randomName1[randomIndex1];
+        String Name2 = randomName2[randomIndex2];
+        String randomValidNameGetError = Name1 + " " + Name2;
         return randomValidNameGetError;
     }
 
